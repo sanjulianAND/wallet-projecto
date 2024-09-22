@@ -89,10 +89,10 @@ return [
         'MySoapService' => [
             'wsdl' => 'http://127.0.0.1:8000/soap-server?wsdl',
             'functions' => [
-                'sum' => [
-                    'function' => 'App\Http\Controllers\SoapController@sum',
-                    'args' => ['a', 'b'],
-                    'return' => 'integer',
+                'registerClient' => [
+                    'function' => 'App\Http\Controllers\SoapController@registerClient',
+                    'args' => ['documento', 'nombres', 'email', 'celular'],
+                    'return' => 'string',
                 ],
             ],
         ],
