@@ -94,6 +94,11 @@ return [
                     'args' => ['documento', 'nombres', 'email', 'celular'],
                     'return' => 'string',
                 ],
+                'loadWallet' => [
+                    'function' => 'App\Http\Controllers\SoapController@loadWallet',
+                    'args' => ['cliente_id', 'monto'],
+                    'return' => 'string',
+                ],
             ],
         ],
     ],
