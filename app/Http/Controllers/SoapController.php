@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cliente;
 use App\Models\Wallet;
+use App\Models\Transaccion;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 
 class SoapController extends Controller
 {
@@ -55,5 +58,39 @@ class SoapController extends Controller
         $wallet->save();
 
         return "Recarga exitosa. Nuevo saldo: " . $wallet->saldo;
+    }
+
+    public function makePayment($cliente_id, $monto)
+    {
+        $cliente = Cliente::find($cliente_id);
+
+        if (!$cliente) {
+            return "Cliente no encontrado.";
+        }
+
+        $wallet = Wallet::where('cliente_id', $cliente_id)->first();
+
+        if (!$wallet || $wallet->saldo < $monto) {
+            return "Saldo insuficiente.";
+        }
+
+        $token = Str::random(10);
+        $id_sesion = Str::uuid();
+
+        $transaccion = Transaccion::create([
+            'cliente_id' => $cliente_id,
+            'wallet_id' => $wallet->id,
+            'monto' => $monto,
+            'token' => $token,
+            'estado' => 'Pendiente',
+            'id_sesion' => $id_sesion,
+        ]);
+
+        Mail::send('emails.token', ['cliente' => $cliente, 'monto' => $monto, 'token' => $token], function ($message) use ($cliente) {
+            $message->to($cliente->email)
+                ->subject('Token de Confirmación de Pago');
+        });
+
+        return "Token de confirmación enviado a {$cliente->email}. Id de sesión: $id_sesion.";
     }
 }
