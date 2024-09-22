@@ -99,6 +99,11 @@ return [
                     'args' => ['cliente_id', 'monto'],
                     'return' => 'string',
                 ],
+                'makePayment' => [
+                    'function' => 'App\Http\Controllers\SoapController@makePayment',
+                    'args' => ['cliente_id', 'monto'],
+                    'return' => 'string',
+                ],
             ],
         ],
     ],
