@@ -89,10 +89,30 @@ return [
         'MySoapService' => [
             'wsdl' => 'http://127.0.0.1:8000/soap-server?wsdl',
             'functions' => [
-                'sum' => [
-                    'function' => 'App\Http\Controllers\SoapController@sum',
-                    'args' => ['a', 'b'],
-                    'return' => 'integer',
+                'registerClient' => [
+                    'function' => 'App\Http\Controllers\SoapController@registerClient',
+                    'args' => ['documento', 'nombres', 'email', 'celular'],
+                    'return' => 'string',
+                ],
+                'loadWallet' => [
+                    'function' => 'App\Http\Controllers\SoapController@loadWallet',
+                    'args' => ['cliente_id', 'monto'],
+                    'return' => 'string',
+                ],
+                'makePayment' => [
+                    'function' => 'App\Http\Controllers\SoapController@makePayment',
+                    'args' => ['cliente_id', 'monto'],
+                    'return' => 'string',
+                ],
+                'confirmPayment' => [
+                    'function' => 'App\Http\Controllers\SoapController@confirmPayment',
+                    'args' => ['id_sesion', 'token'],
+                    'return' => 'string',
+                ],
+                'checkBalance' => [
+                    'function' => 'App\Http\Controllers\SoapController@checkBalance',
+                    'args' => ['cliente_id'],
+                    'return' => 'string',
                 ],
             ],
         ],
