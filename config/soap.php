@@ -109,6 +109,11 @@ return [
                     'args' => ['id_sesion', 'token'],
                     'return' => 'string',
                 ],
+                'checkBalance' => [
+                    'function' => 'App\Http\Controllers\SoapController@checkBalance',
+                    'args' => ['cliente_id'],
+                    'return' => 'string',
+                ],
             ],
         ],
     ],

@@ -86,10 +86,10 @@ class SoapController extends Controller
             'id_sesion' => $id_sesion,
         ]);
 
-        Mail::send('emails.token', ['cliente' => $cliente, 'monto' => $monto, 'token' => $token], function ($message) use ($cliente) {
+        /*Mail::send('emails.token', ['cliente' => $cliente, 'monto' => $monto, 'token' => $token], function ($message) use ($cliente) {
             $message->to($cliente->email)
                 ->subject('Token de Confirmación de Pago');
-        });
+        });*/
 
         return "Token de confirmación enviado a {$cliente->email}. Id de sesión: $id_sesion.";
     }
@@ -119,5 +119,21 @@ class SoapController extends Controller
         $transaccion->save();
 
         return "Pago confirmado con éxito. Nuevo saldo de la billetera: " . $wallet->saldo;
+    }
+    public function checkBalance($cliente_id)
+    {
+        $cliente = Cliente::find($cliente_id);
+
+        if (!$cliente) {
+            return "Cliente no encontrado.";
+        }
+
+        $wallet = Wallet::where('cliente_id', $cliente_id)->first();
+
+        if (!$wallet) {
+            return "Billetera no encontrada.";
+        }
+
+        return "Saldo actual de la billetera: " . $wallet->saldo;
     }
 }
