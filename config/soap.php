@@ -104,6 +104,11 @@ return [
                     'args' => ['cliente_id', 'monto'],
                     'return' => 'string',
                 ],
+                'confirmPayment' => [
+                    'function' => 'App\Http\Controllers\SoapController@confirmPayment',
+                    'args' => ['id_sesion', 'token'],
+                    'return' => 'string',
+                ],
             ],
         ],
     ],

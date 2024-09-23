@@ -93,4 +93,31 @@ class SoapController extends Controller
 
         return "Token de confirmación enviado a {$cliente->email}. Id de sesión: $id_sesion.";
     }
+
+    public function confirmPayment($id_sesion, $token)
+    {
+        $transaccion = Transaccion::where('id_sesion', $id_sesion)->where('token', $token)->first();
+
+        if (!$transaccion) {
+            return "Token o ID de sesión no válidos.";
+        }
+
+        if ($transaccion->estado !== 'Pendiente') {
+            return "La transacción ya ha sido confirmada o cancelada.";
+        }
+
+        $wallet = $transaccion->wallet;
+
+        if ($wallet->saldo < $transaccion->monto) {
+            return "Saldo insuficiente en la billetera.";
+        }
+
+        $wallet->saldo -= $transaccion->monto;
+        $wallet->save();
+
+        $transaccion->estado = 'Confirmado';
+        $transaccion->save();
+
+        return "Pago confirmado con éxito. Nuevo saldo de la billetera: " . $wallet->saldo;
+    }
 }
