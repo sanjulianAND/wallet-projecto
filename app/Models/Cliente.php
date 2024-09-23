@@ -9,6 +9,5 @@ class Cliente extends Model
 {
     use HasFactory;
 
-    // Atributos que se pueden asignar masivamente.
     protected $fillable = ['documento', 'nombres', 'email', 'celular'];
 }
