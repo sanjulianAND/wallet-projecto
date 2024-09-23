@@ -1,0 +1,187 @@
+{
+	"info": {
+		"_postman_id": "09937618-b0d8-4eb2-aef1-bd1489d87729",
+		"name": "Wallet_Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36192509"
+	},
+	"item": [
+		{
+			"name": "Registrar cliente",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/xml",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "text/xml",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n    <soapenv:Header/>\r\n    <soapenv:Body>\r\n        <registerClient>\r\n            <documento>1234567890</documento>\r\n            <nombres>Juan Perez</nombres>\r\n            <email>juan@example.com</email>\r\n            <celular>1234567890</celular>\r\n        </registerClient>\r\n    </soapenv:Body>\r\n</soapenv:Envelope>\r\n",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/soap-server",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"soap-server"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cargar wallet",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n   <soapenv:Header/>\r\n   <soapenv:Body>\r\n      <loadWallet>\r\n         <cliente_id>1</cliente_id>\r\n         <monto>100.00</monto>\r\n      </loadWallet>\r\n   </soapenv:Body>\r\n</soapenv:Envelope>\r\n",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/soap-server",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"soap-server"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Transacción",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n   <soapenv:Header/>\r\n   <soapenv:Body>\r\n      <makePayment>\r\n         <cliente_id>1</cliente_id>\r\n         <monto>100.00</monto>\r\n      </makePayment>\r\n   </soapenv:Body>\r\n</soapenv:Envelope>\r\n",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/soap-server?wsdl",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"soap-server"
+					],
+					"query": [
+						{
+							"key": "wsdl",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Confirmar Pago",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n    <soapenv:Header/>\r\n    <soapenv:Body>\r\n        <confirmPayment>\r\n            <id_sesion>8eaf18c5-d4e9-48ff-8eae-2b68ed238d2c</id_sesion>\r\n            <token>QFvaYPe8Oh</token>\r\n        </confirmPayment>\r\n    </soapenv:Body>\r\n</soapenv:Envelope>\r\n",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/soap-server",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"soap-server"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar Saldo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n   <soapenv:Header/>\r\n   <soapenv:Body>\r\n      <checkBalance>\r\n         <cliente_id>1</cliente_id>\r\n      </checkBalance>\r\n   </soapenv:Body>\r\n</soapenv:Envelope>\r\n",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/soap-server",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"soap-server"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
